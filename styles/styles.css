@@ -1,0 +1,87 @@
+@font-face {
+    font-family: "montserrat";
+    src: url(../storage/fonts/Montserrat-SemiBold.ttf);
+}
+
+
+body {
+    background-image: url(../storage/imgs/fondo.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    display: flex;
+    min-height: 100vh;
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center;
+}
+
+.logo_rinconada{
+    position: absolute;
+    width: 16%;
+    left: 6%;
+    top: 2.5vh;
+}
+
+.mainDiv {
+    width: 50%;
+    height: 70%;
+    border: 1px solid wheat;
+    display: flex;
+    flex-direction: column;
+}
+
+.superiorDiv {
+    height: 50%;
+    border: 1px solid wheat;
+    display: flex;
+    flex-direction: column;
+}
+
+.inferiorDiv{
+    display: flex;
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.texto1{
+    font-family: "montserrat";
+    color: white;
+    font-size: 4vw;
+    text-align: center;
+    margin-bottom: 0%;
+}
+
+.texto2{
+    font-family: "montserrat";
+    color: white;
+    font-size: 1.2vw;
+    text-align: center;
+}
+
+.cuadro1{
+    font-family: "montserrat";
+    font-size: 1.2vw;
+    width: 20vw;
+    height: 4vh;
+}
+
+.cuadro2{
+    font-family: "montserrat";
+    font-size: 1.2vw;
+    width: 20vw;
+    height: 4vh;
+
+}
+
+.boton{
+    font-family: "montserrat";
+    font-size: 1.2vw;
+    width: 12vw;
+    height: 4vh;
+    left: 50vw;
+}
