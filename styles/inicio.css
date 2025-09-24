@@ -1,0 +1,30 @@
+@font-face {
+    font-family: "montserrat";
+    src: url(../storage/fonts/Montserrat-SemiBold.ttf);
+}
+
+@font-face {
+    font-family: "montserrat_extrabold";
+    src: url(../storage/fonts/Montserrat-ExtraBold.ttf);
+}
+
+
+body {
+    background-image: url(../storage/imgs/fondo_inicio.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    display: flex;
+    min-height: 100vh;
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center;
+}
+
+
+.logo{
+    width: 50%;
+    height: 70%;
+    display: flex; /* Habilita Flexbox */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+}
+

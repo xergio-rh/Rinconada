@@ -19,8 +19,6 @@ body {
     align-items: center;
 }
 
-
-
 .logo_rinconada{
     position: absolute;
     width: 16%;
@@ -28,20 +26,16 @@ body {
     top: 2.5vh;
 }
 
-
-
-/*///////////////////////////////////////////////////////////////////////*/
-
+/*****************************************************************/
 
 .mainDiv {
-    width: 50%;
+    width: 60%;
     height: 70%;
     display: flex;
     flex-direction: column;
 }
 
-/*////////////////////////////////////////////////////////////////////////////////////*/
-
+/*****************************************************************/
 
 .superiorDiv {
     height: 50%;
@@ -59,7 +53,7 @@ body {
 
 .texto2{
     font-family: "montserrat";
-    color: white;
+    color: red;
     font-size: 1.2vw;
     text-align: center;
 }
@@ -76,6 +70,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    color: white;
 }
 
 .cuadro1{
@@ -97,8 +92,16 @@ body {
     color: white;
     background-color: black;
     opacity: 0.6;
+}
 
-
+.cuadro3{
+    font-family: "montserrat";
+    font-size: 1.2vw;
+    width: 20vw;
+    height: 4vh;
+    color: white;
+    background-color: black;
+    opacity: 0.6;
 }
 
 .boton{
