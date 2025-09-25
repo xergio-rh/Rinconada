@@ -9,14 +9,17 @@
     src: url(../storage/fonts/Montserrat-ExtraBold.ttf);
 }
 
+@font-face {
+    font-family: "montserrat_regular";
+    src: url(../storage/fonts/Montserrat-Regular.ttf);
+}
+
 
 body {
     background-image: url(../storage/imgs/fondo_inicio.png);
     background-repeat: no-repeat;
     background-size: cover;
     min-height: 100vh;
-    
- 
     gap: 0;
 }
 
@@ -60,36 +63,73 @@ header {
   font-size: 1.5vw;
 }
 
-
-
 .main-nav a {
   text-decoration: none; /* Elimina el subrayado de los enlaces */
   color: white;
   font-weight: bold;
 }
 
-.peliculasDiv {
-  width: 95vw;
+
+
+.textoDiv {
+  width: 98vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.Texto {
+  color: white;
+  font-family: "montserrat_regular";
+  font-size: 1.8vw;
+  width: 30%;
+  text-align: center;
+}
+
+
+.popularesDiv {
+  width: 98vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.popularesTexto {
+  color: white;
+  font-family: "montserrat_regular";
+  font-size: 1.4vw;
+  width: 60%;
+  margin-left: 2vw;
+}
+
+.color{
+    color: red;
+}
+
+
+.rankingDiv {
+  width: 98vw;
   display: flex;
   flex-direction: row;
   align-items: center;
   margin-left: 2vw;
 }
 
-.peliculasTexto {
+.rankingTexto {
   color: white;
-  font-family: "montserrat";
-  font-size: 1.8vw;
-  width: 10%;
+  font-family: "montserrat_regular";
+  font-size: 1.4vw;
+  width: 60%;
 }
 
-.barraBlanca {
-  border: 1px solid white;
-  width: 90%;
-  height: 0%;
+.color{
+    color: red;
 }
 
-/**************************************************************************/
+
+/**********************************************************************/
 
 .container {
   display: grid;
@@ -114,7 +154,7 @@ header {
   transform: scale(1.1);
 }
 
-/***************************************************************************/
+/**************************************************************************/
 
 /* Contenedor del menú desplegable */
 .dropdown {
@@ -165,7 +205,7 @@ header {
   to { opacity: 1; }
 }
 
-/****************************************************************************/
+/**********************************************************************/
 
 /* Contenedor del menú desplegable del perfil */
 .dropdown-profile {
@@ -207,7 +247,8 @@ header {
   display: block;
 }
 
-/********************************************************************/
+
+/*****************************************************************************/
 
 /* Contenedor del ícono y el input de búsqueda */
 .search-bar-container {
@@ -250,6 +291,3 @@ header {
   left: -260px; /* Mueve el ícono a la izquierda */
   transition: left 0.3s ease-in-out;
 }
-
-/*********************************************************************************/
-
