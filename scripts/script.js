@@ -1,3 +1,19 @@
+import { obtenerDatos } from "./api.js";
+
+async function iniciarCarga(params) {
+   console.log ('---Iniciando bbdd---');
+   const datos = await obtenerDatos();
+   if (datos) {
+    console.log('Datos obtenidos con exito')
+    console.log(datos);
+
+   } else {
+     console.log('fallo al obtener los datos de la api')
+   }  
+}
+document.addEventListener('DOMContentLoaded', iniciarCarga);
+
+
 document.addEventListener('DOMContentLoaded', () => {
     // Código para el modal de películas (el que ya tienes) ...
 
