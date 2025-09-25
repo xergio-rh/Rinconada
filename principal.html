@@ -11,34 +11,68 @@
 </head>
 <body>
     <header>
-  <div class="search-bar">
-    <a href="#"><img src="./storage/imgs/lupa.png" alt="Buscar" class="icon-search"></a>
-  </div>
+      <div class="search-bar">
+        <a href="#"><img src="./storage/imgs/lupa.png" alt="Buscar" class="icon-search"></a>
+      </div>
+
+      <nav class="main-nav">
+        <ul>
+          <li><a href="#">Inicio</a></li>
+          <li><a href="#">Peliculas</a></li>
+          <li><a href="#">Series</a></li>
+          <li><a href="#">Categorias</a></li>
+        </ul>
+      </nav>
+
+      <div class="user-profile">
+        <a href="#"><img src="./storage/imgs/profile.png" alt="Perfil de usuario" class="icon-profile"></a>
+      </div>
 
 
-  <nav class="main-nav">
-    <ul>
-      <li><a href="#">Inicio</a></li>
-      <li><a href="#">Peliculas</a></li>
-      <li><a href="#">Series</a></li>
-      <li><a href="#">Categorias</a></li>
-    </ul>
-  </nav>
-
-  
+    </header>
 
 
-  <div class="user-profile">
-    <a href="#"><img src="./storage/imgs/profile.png" alt="Perfil de usuario" class="icon-profile"></a>
-  </div>
+    <div class="peliculasDiv">
+      <p class="peliculasTexto">Peliculas</p>  
+      <div class="barraBlanca"></div>
+    </div>
 
 
-</header>
 
-<div class="categoria">
-    <p>Peliculas</p>
-    <div class="barra"></div>
-</div>
+    <div class="container">
+      <img src="./storage/imgs/lalaland.png" alt="">
+      <img src="./storage/imgs/lalaland.png" alt="">
+      <img src="./storage/imgs/lalaland.png" alt="">
+      <img src="./storage/imgs/lalaland.png" alt="">
+      <img src="./storage/imgs/lalaland.png" alt="">
+      <img src="./storage/imgs/lalaland.png" alt="">
+      <img src="./storage/imgs/lalaland.png" alt="">
+      <img src="./storage/imgs/lalaland.png" alt="">
+      <img src="./storage/imgs/lalaland.png" alt="">
+      <img src="./storage/imgs/lalaland.png" alt="">
+      <img src="./storage/imgs/lalaland.png" alt="">
+      <img src="./storage/imgs/lalaland.png" alt="">
+      <img src="./storage/imgs/lalaland.png" alt="">
+      <img src="./storage/imgs/lalaland.png" alt="">
+      <img src="./storage/imgs/lalaland.png" alt="">
+      <img src="./storage/imgs/lalaland.png" alt="">
+      <img src="./storage/imgs/lalaland.png" alt="">
+      <img src="./storage/imgs/lalaland.png" alt="">
+      </div>
+
+
+
+
+      <div id="movie-modal" class="modal-hidden">
+        <div class="modal-content">
+          <span class="close-btn">&times;</span>
+          <img id="modal-poster" src="" alt="Poster de la película">
+          <h2 id="modal-title"></h2>
+          <p id="modal-year"></p>
+          <p id="modal-category"></p>
+          <p id="modal-description"></p>
+        </div>
+      </div>
     
     
 </body>
