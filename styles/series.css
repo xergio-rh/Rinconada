@@ -1,0 +1,251 @@
+@font-face {
+    font-family: "montserrat";
+    src: url(../storage/fonts/Montserrat-SemiBold.ttf);
+}
+
+@font-face {
+    font-family: "montserrat_extrabold";
+    src: url(../storage/fonts/Montserrat-ExtraBold.ttf);
+}
+
+
+body {
+    background-image: url(../storage/imgs/fondo_inicio.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    
+ 
+    gap: 0;
+}
+
+/* Estilos generales del header */
+header {
+  display: flex; /* Convierte el header en un contenedor flex */
+  justify-content: space-between; /* Distribuye el espacio entre los elementos */
+  align-items: center; /* Centra los elementos verticalmente */
+  padding: 10px 20px; /* Espacio interno */
+  color: white; /* Color del texto */
+  font-family: "montserrat";
+  top: 0; /* Lo coloca a 0 píxeles de la parte superior */
+  left: 0; /* Lo alinea a 0 píxeles de la izquierda */
+  width: 98%; /* Hace que ocupe todo el ancho de la ventana */
+  z-index: 1000; /* Asegura que la barra esté siempre encima de otros elementos */
+  margin-bottom: 0;
+}
+
+/* Estilos de la barra de búsqueda y el perfil de usuario */
+.search-bar, .user-profile {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar a, .user-profile a {
+  padding: 8px; /* Espacio para el icono */
+}
+
+.icon-search, .icon-profile {
+  width: 60px; /* Tamaño del ícono */
+  height: 40px;
+}
+
+/* Estilos para la barra de navegación */
+.main-nav ul {
+  display: flex; /* Convierte la lista en un contenedor flex */
+  list-style: none; /* Elimina los puntos de la lista */
+  padding: 0;
+  margin: 0;
+  gap: 50px; /* Espacio entre los elementos de la lista */
+  font-size: 1.5vw;
+}
+
+
+
+.main-nav a {
+  text-decoration: none; /* Elimina el subrayado de los enlaces */
+  color: white;
+  font-weight: bold;
+}
+
+.peliculasDiv {
+  width: 95vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 2vw;
+}
+
+.peliculasTexto {
+  color: white;
+  font-family: "montserrat";
+  font-size: 1.8vw;
+  width: 10%;
+}
+
+.barraBlanca {
+  border: 1px solid white;
+  width: 90%;
+  height: 0%;
+}
+
+/**************************************************************************/
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 2vw;
+  margin: 3vw auto;
+  padding: 0 2vw;
+  max-width: 93vw;
+  justify-content: center;
+}
+
+.container img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 0.8vw;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+  
+.container img:hover {
+  transform: scale(1.1);
+}
+
+/***************************************************************************/
+
+/* Contenedor del menú desplegable */
+.dropdown {
+    position: relative; /* Es clave para que el menú se posicione correctamente */
+  }
+  
+  /* El menú en sí mismo */
+  .dropdown-content {
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    background-color: #222; /* Color de fondo oscuro */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+    z-index: 1001; /* Asegura que esté sobre otros elementos */
+    top: 100%; /* Lo posiciona justo debajo del enlace */
+    left: 0;
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 10px 0;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  /* Estilo para los enlaces dentro del menú */
+  .dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    font-family: "montserrat";
+    font-weight: normal;
+    font-size: 1rem;
+  }
+  
+  /* Cambio de color al pasar el cursor */
+  .dropdown-content a:hover {
+    background-color: #444;
+  }
+  
+  /* Clase para mostrar el menú */
+  .dropdown-show {
+    display: block;
+  }
+  
+  /* Animación de entrada (la misma que usas en el modal) */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+/***********************************************************/
+
+/* Contenedor del menú desplegable del perfil */
+.dropdown-profile {
+    position: relative; /* Es clave para el posicionamiento */
+  }
+  
+  /* El menú en sí mismo */
+  .dropdown-profile-content {
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    background-color: #222;
+    min-width: 150px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+    z-index: 1001;
+    top: 100%; /* Posiciona el menú debajo del ícono */
+    right: 0; /* Lo alinea a la derecha del ícono */
+    border-radius: 5px;
+    overflow: hidden;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  /* Estilo para el enlace de "Cerrar Sesión" */
+  .dropdown-profile-content .logout-link {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    font-family: "montserrat";
+  }
+  
+  /* Cambio de color al pasar el cursor */
+  .dropdown-profile-content .logout-link:hover {
+    background-color: #444;
+  }
+  
+  /* Clase para mostrar el menú */
+  .dropdown-show-profile {
+    display: block;
+  }
+
+/**************************************************************************/
+
+/* Contenedor del ícono y el input de búsqueda */
+.search-bar-container {
+    display: flex;
+    align-items: center;
+    position: relative; /* Clave para el posicionamiento */
+  }
+  
+  /* El contenedor del input que estará oculto */
+  .search-input-hidden {
+    display: none;
+    position: absolute;
+    left: 70px; /* Ajusta la posición para que no se superponga con la lupa */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 370px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  /* Estilo del input de búsqueda */
+  .search-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    font-family: "montserrat";
+  }
+  
+  /* Estilo para el input cuando está activo */
+  .search-input-hidden.active {
+    display: block;
+    opacity: 1;
+  }
+  
+  /* Mueve el ícono de búsqueda a la izquierda cuando la barra se activa */
+  .search-bar-container.active .icon-search {
+    left: -260px; /* Mueve el ícono a la izquierda */
+    transition: left 0.3s ease-in-out;
+  }

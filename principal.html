@@ -11,21 +11,40 @@
 </head>
 <body>
     <header>
-      <div class="search-bar">
-        <a href="#"><img src="./storage/imgs/lupa.png" alt="Buscar" class="icon-search"></a>
+      <div class="search-bar-container">
+        <a href="#" id="search-link">
+          <img src="./storage/imgs/lupa.png" alt="Buscar" class="icon-search">
+        </a>
+        <div id="search-input-wrapper" class="search-input-hidden">
+          <input type="text" placeholder="Buscar..." class="search-input">
+        </div>
       </div>
 
       <nav class="main-nav">
         <ul>
-          <li><a href="#">Inicio</a></li>
-          <li><a href="#">Peliculas</a></li>
-          <li><a href="#">Series</a></li>
-          <li><a href="#">Categorias</a></li>
+          <li><a href="">Inicio</a></li>
+          <li><a href="">Peliculas</a></li>
+          <li><a href="./series.html">Series</a></li>
+          <li class="dropdown">
+            <a href="#" id="categorias-link">Categorias</a>
+            <div id="categorias-menu" class="dropdown-content">
+              <a href="#">Anime</a>
+              <a href="#">Ciencia Ficción</a>
+              <a href="#">Superhéroes</a>
+              <a href="#">Fantasía</a>
+              <a href="">Romance</a>
+              <a href="">Terror</a>
         </ul>
       </nav>
 
-      <div class="user-profile">
-        <a href="#"><img src="./storage/imgs/profile.png" alt="Perfil de usuario" class="icon-profile"></a>
+
+      <div class="user-profile dropdown-profile">
+        <a href="#" id="profile-link">
+          <img src="./storage/imgs/profile.png" alt="Perfil de usuario" class="icon-profile">
+        </a>
+        <div id="profile-menu" class="dropdown-profile-content">
+          <a href="./index.html" class="logout-link">Cerrar Sesión</a>
+        </div>
       </div>
 
 
@@ -60,20 +79,7 @@
       <img src="./storage/imgs/lalaland.png" alt="">
       </div>
 
-
-
-
-      <div id="movie-modal" class="modal-hidden">
-        <div class="modal-content">
-          <span class="close-btn">&times;</span>
-          <img id="modal-poster" src="" alt="Poster de la película">
-          <h2 id="modal-title"></h2>
-          <p id="modal-year"></p>
-          <p id="modal-category"></p>
-          <p id="modal-description"></p>
-        </div>
-      </div>
-    
     
 </body>
+<script src="./scripts/script.js"></script>
 </html>
