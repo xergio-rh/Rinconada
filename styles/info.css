@@ -1,0 +1,109 @@
+
+@font-face {
+    font-family: "montserrat";
+    src: url(../storage/fonts/Montserrat-SemiBold.ttf);
+}
+
+@font-face {
+    font-family: "montserrat_extrabold";
+    src: url(../storage/fonts/Montserrat-ExtraBold.ttf);
+}
+
+
+body {
+    background-image: url(../storage/imgs/fondo_info.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    gap: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.volverDiv{
+    font-family: "montserrat";
+    margin-left: -7vw;
+    font-size: 2vw;
+    width: 7%;
+}
+
+a{
+    text-decoration: none;
+    color: red;
+}
+
+
+.mainDiv {
+    width: 80%;
+    display: flex;
+    flex-direction:row;
+}
+
+.divIzq{
+    width: 50%;
+    text-align: center;
+  
+}
+
+.pelicula_img{
+    width: 80%;
+}
+
+
+/******************************************************************/
+.divDer{
+    width: 50%;
+}
+
+.title{
+    font-family: "montserrat_extrabold";
+    color: white;
+    font-size: 3vw;
+}
+
+.ano{
+    font-family: "montserrat";
+    color: white;
+    font-size: 1.5vw;
+}
+
+.categoria{
+    font-family: "montserrat";
+    color: white;
+    font-size: 1.5vw;
+}
+
+.descripcion{
+    font-family: "montserrat";
+    color: white;
+    font-size: 1vw;
+}
+
+.titulo{
+    font-family: "montserrat_extrabold";
+    color: white;
+    font-size: 1.5vw;
+}
+
+.ranking{
+    font-family: "montserrat";
+    color: white;
+    font-size: 1.5vw;
+}
+
+.calificacion{
+    font-family: "montserrat";
+    color: white;
+    font-size: 1.5vw;
+}
+
+.resenas{
+    font-family: "montserrat_extrabold";
+    color: red;
+    font-size: 2vw;
+    text-align: center;
+}
+
