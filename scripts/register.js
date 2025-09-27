@@ -1,30 +1,50 @@
- const API_URL = "https://riconada-s1-bastosthomas-ruedasergio.onrender.com/api/v1";
+// --- src/scripts/register.js ---
 
- document.getElementById("formularioRegistro").addEventListener("submit", async function(e){
-    e.preventDefault();
-  
-    const email = document.getElementById("correoRegistro").value;
-    const password = document.getElementById("contraseñaRegistro").value;
-  
-    try {
-      const response = await fetch(`${API_URL}/auth/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email, password })
-      });
-  
-      if (!response.ok) {
-        throw new Error("Registro fallido");
-      }
-  
-      const data = await response.json();
-      alert("Usuario registrado en la BBDD ");
-  
-      window.location.href = "index.html"; 
-    } catch (err) {
-      console.error("Error al registrar usuario:", err);
-      alert("Error al registrar, intenta de nuevo");
+const API_URL = "https://riconada-s1-bastosthomas-ruedasergio-i61e.onrender.com/api/v1";
+
+document.addEventListener('DOMContentLoaded', () => {
+    // ID del formulario de registro
+    const registerForm = document.getElementById('formulariologin'); 
+    
+    if (registerForm) {
+        registerForm.addEventListener('submit', handleRegister);
     }
-  });
+});
+
+async function handleRegister(event) {
+    event.preventDefault(); 
+
+    // Obtener valores
+    const name = document.getElementById('nombre').value; 
+    const email = document.getElementById('correo').value; 
+    const password = document.getElementById('contraseña').value; 
+
+    if (!name || !email || !password) {
+        console.log('Error: Por favor, completa todos los campos.');
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/auth/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, email, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            // Éxito: Muestra mensaje en consola y REDIRIGE al login
+            console.log('Usuario registrado exitosamente.');
+            window.location.href = 'index.html'; 
+        } else {
+            // Error de la API 
+            const errorMessage = data.message || data.msg || 'Error desconocido al registrar usuario.';
+            console.error('Fallo en el Registro:', errorMessage);
+        }
+    } catch (error) {
+        console.error('Error de conexión con la API:', error);
+    }
+}
