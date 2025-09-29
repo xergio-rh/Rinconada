@@ -1,4 +1,4 @@
-// Archivo: ./scripts/series.js (VERSIÓN FINAL Y CORREGIDA)
+// Archivo: ./scripts/series.js (VERSIÓN FINAL Y ROBUSTA)
 
 // NUEVA URL BASE SIN /api/v1
 const BASE_URL = 'https://riconada-s1-bastosthomas-ruedasergio-i61e.onrender.com';
@@ -7,11 +7,17 @@ const BASE_URL = 'https://riconada-s1-bastosthomas-ruedasergio-i61e.onrender.com
 let todasLasSeries = []; 
 
 // ***************************************************************
-// FUNCIÓN AUXILIAR: Quitar tildes para evitar errores de coincidencia
+// FUNCIÓN AUXILIAR: Quitar tildes, espacios y guiones para comparación
 // ***************************************************************
 function quitarTildes(texto) {
-    // Normaliza la cadena y remueve los diacríticos (tildes)
-    return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    if (typeof texto !== 'string') return '';
+    // 1. Normaliza y remueve diacríticos (tildes)
+    let limpio = texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    
+    // 2. ELIMINA TODOS LOS ESPACIOS EN BLANCO Y GUIONES
+    limpio = limpio.replace(/\s+/g, '').replace(/-/g, ''); 
+    
+    return limpio;
 }
 
 // ***************************************************************
@@ -29,13 +35,6 @@ async function cargarYMostrarSeries() {
         }
         
         const series = await respuesta.json();
-        
-        // 🛑 LÍNEA DE DIAGNÓSTICO CLAVE:
-        // Imprime las categorías del primer objeto de la API
-        if (series.length > 0 && series[0].categoria) {
-            console.warn("DIAGNÓSTICO API: Las categorías del primer elemento son:", series[0].categoria);
-        }
-        // 🛑 FIN DE DIAGNÓSTICO
         
         todasLasSeries = series; 
         
@@ -81,7 +80,7 @@ function imprimirSeries(series) {
 
 
 // ***************************************************************
-// FUNCIÓN 2: Lógica de Filtrado por Categoría (CORREGIDA)
+// FUNCIÓN 2: Lógica de Filtrado por Categoría (CORREGIDA PARA BACKEND ROTO)
 // ***************************************************************
 function filtrarPorCategoria(categoria) {
     // Desactivar la búsqueda al usar el filtro
@@ -96,26 +95,36 @@ function filtrarPorCategoria(categoria) {
         return;
     }
 
-    // 🔑 CLAVE: Normalizamos el nombre de la categoría (usuario)
+    // 🔑 CLAVE: Normalizamos el nombre de la categoría del menú
     const categoriaLimpia = quitarTildes(categoria).toLowerCase();
-
-    // Nota: Los logs de prueba se han quitado para el código final.
-    // console.log("BUSCANDO CATEGORÍA:", categoriaLimpia); 
 
     const seriesFiltradas = todasLasSeries.filter(serie => {
         if (!serie.categoria) return false; 
         
-        // Caso 1: La categoría es un ARRAY (lo más común en series)
-        if (Array.isArray(serie.categoria)) {
-            return serie.categoria.some(cat => {
-                const catAPI_Limpia = quitarTildes(cat).toLowerCase();
-                return catAPI_Limpia === categoriaLimpia;
-            });
+        let categoriasAPI = [];
+
+        // 🛑 NUEVA CORRECCIÓN: Manejar el formato de Objeto {"0": "accion"} del backend
+        if (typeof serie.categoria === 'object' && serie.categoria !== null && serie.categoria.hasOwnProperty('0')) {
+            // Si el backend envía {"0": "accion"}, extrae el string "accion"
+            categoriasAPI.push(serie.categoria['0']);
         } 
-        
-        // Caso 2: La categoría es un STRING simple (Manejo de data inconsistente)
-        const catAPI_Limpia = quitarTildes(serie.categoria).toLowerCase();
-        return catAPI_Limpia === categoriaLimpia;
+        // Caso 1: La categoría es un ARRAY (el formato correcto para múltiples categorías)
+        else if (Array.isArray(serie.categoria)) {
+            categoriasAPI = serie.categoria;
+        } 
+        // Caso 2: La categoría es un STRING simple
+        else if (typeof serie.categoria === 'string') {
+            categoriasAPI.push(serie.categoria);
+        } else {
+            return false; // No hay categoría válida
+        }
+
+
+        // Compara las categorías extraídas de la API con la categoría limpia del menú
+        return categoriasAPI.some(cat => {
+            const catAPI_Limpia = quitarTildes(cat).toLowerCase();
+            return catAPI_Limpia === categoriaLimpia;
+        });
     });
 
     imprimirSeries(seriesFiltradas);
@@ -134,7 +143,6 @@ function buscarSeries(termino) {
     const terminoLowerCase = termino.toLowerCase();
 
     const resultados = todasLasSeries.filter(serie => {
-        // Asumiendo que 'titulo' y 'descripcion' son strings
         const tituloCoincide = serie.titulo.toLowerCase().includes(terminoLowerCase);
         const descripcionCoincide = serie.descripcion.toLowerCase().includes(terminoLowerCase);
 
@@ -182,6 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
         enlacesCategoria.forEach(enlace => {
             enlace.addEventListener('click', (e) => {
                 e.preventDefault();
+                // Usamos currentTarget para obtener el atributo del elemento <a>
                 const categoriaSeleccionada = e.currentTarget.getAttribute('data-category');
                 
                 filtrarPorCategoria(categoriaSeleccionada);

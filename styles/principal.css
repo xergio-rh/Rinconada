@@ -1,255 +1,352 @@
-
 @font-face {
-    font-family: "montserrat";
-    src: url(../storage/fonts/Montserrat-SemiBold.ttf);
+  font-family: "montserrat";
+  src: url(../storage/fonts/Montserrat-SemiBold.ttf);
 }
 
 @font-face {
-    font-family: "montserrat_extrabold";
-    src: url(../storage/fonts/Montserrat-ExtraBold.ttf);
+  font-family: "montserrat_extrabold";
+  src: url(../storage/fonts/Montserrat-ExtraBold.ttf);
 }
 
 
 body {
-    background-image: url(../storage/imgs/fondo_inicio.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    min-height: 100vh;
-    
- 
-    gap: 0;
-}
-
-/* Estilos generales del header */
-header {
-  display: flex; /* Convierte el header en un contenedor flex */
-  justify-content: space-between; /* Distribuye el espacio entre los elementos */
-  align-items: center; /* Centra los elementos verticalmente */
-  padding: 10px 20px; /* Espacio interno */
-  color: white; /* Color del texto */
-  font-family: "montserrat";
-  top: 0; /* Lo coloca a 0 píxeles de la parte superior */
-  left: 0; /* Lo alinea a 0 píxeles de la izquierda */
-  width: 98%; /* Hace que ocupe todo el ancho de la ventana */
-  z-index: 1000; /* Asegura que la barra esté siempre encima de otros elementos */
-  margin-bottom: 0;
-}
-
-/* Estilos de la barra de búsqueda y el perfil de usuario */
-.search-bar, .user-profile {
-  display: flex;
-  align-items: center;
-}
-
-.search-bar a, .user-profile a {
-  padding: 8px; /* Espacio para el icono */
-}
-
-.icon-search, .icon-profile {
-  width: 60px; /* Tamaño del ícono */
-  height: 40px;
-}
-
-/* Estilos para la barra de navegación */
-.main-nav ul {
-  display: flex; /* Convierte la lista en un contenedor flex */
-  list-style: none; /* Elimina los puntos de la lista */
+  background-image: url(../storage/imgs/fondo_inicio.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+  margin: 0; /* Asegura que no haya márgenes externos */
   padding: 0;
-  margin: 0;
-  gap: 50px; /* Espacio entre los elementos de la lista */
-  font-size: 1.5vw;
+  gap: 0;
 }
 
+/* ------------------------------------------------------------------- */
+/* ESTILOS DE HEADER (PC/DEFAULT) */
+/* ------------------------------------------------------------------- */
+header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 10px 20px;
+color: white;
+font-family: "montserrat";
+top: 0;
+left: 0;
+width: 98%; 
+z-index: 1000;
+margin-bottom: 0;
+}
 
+/* Íconos de búsqueda y perfil */
+.icon-search, .icon-profile {
+width: 30px; /* Reducido para mejor control */
+height: 30px;
+cursor: pointer;
+}
+
+/* Estilos para la barra de navegación (MAIN NAV) */
+.main-nav ul {
+display: flex;
+list-style: none;
+padding: 0;
+margin: 0;
+gap: 30px; /* Reducido el espacio entre links */
+font-size: 1.2vw;
+}
 
 .main-nav a {
-  text-decoration: none; /* Elimina el subrayado de los enlaces */
-  color: white;
-  font-weight: bold;
+text-decoration: none;
+color: white;
+font-weight: bold;
 }
 
+/* ------------------------------------------------------------------- */
+/* TÍTULO Y LÍNEA DIVISORIA */
+/* ------------------------------------------------------------------- */
+
 .peliculasDiv {
-  width: 95vw;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-left: 2vw;
+width: 95vw;
+display: flex;
+flex-direction: row;
+align-items: center;
+margin-left: 2vw;
+margin-top: 30px; /* Espacio para separar del header */
 }
 
 .peliculasTexto {
-  color: white;
-  font-family: "montserrat";
-  font-size: 1.8vw;
-  width: 10%;
+color: white;
+font-family: "montserrat";
+font-size: 1.8vw;
+width: 10%;
+white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
 }
 
 .barraBlanca {
-  border: 1px solid white;
-  width: 90%;
-  height: 0%;
+border: 1px solid white;
+width: 90%;
+height: 0;
 }
 
-/**************************************************************************/
-
+/* ------------------------------------------------------------------- */
+/* GRID DE PELÍCULAS (PC/DEFAULT) */
+/* ------------------------------------------------------------------- */
 .container {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 2vw;
-  margin: 3vw auto;
-  padding: 0 2vw;
-  max-width: 93vw;
-  justify-content: center;
+display: grid;
+grid-template-columns: repeat(6, 1fr); /* 6 columnas en PC */
+gap: 2vw;
+margin: 3vw auto;
+padding: 0 2vw;
+max-width: 93vw;
+justify-content: center;
 }
 
 .container img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 0.8vw;
-  cursor: pointer;
-  transition: transform 0.3s ease-in-out;
-}
-  
-.container img:hover {
-  transform: scale(1.1);
+width: 100%;
+height: auto;
+aspect-ratio: 2/3; /* Mantiene la proporción de un póster de película */
+object-fit: cover;
+border-radius: 0.8vw;
+cursor: pointer;
+transition: transform 0.3s ease-in-out;
 }
 
-/***************************************************************************/
+.container img:hover {
+transform: scale(1.05); /* Escala ligeramente menor para ser más sutil */
+}
+
+/* ------------------------------------------------------------------- */
+/* ESTILOS DE DROPDOWNS (CATEGORIAS Y PERFIL) */
+/* (Se mantienen igual, pero se añade clase para móvil) */
+/* ------------------------------------------------------------------- */
 
 /* Contenedor del menú desplegable */
 .dropdown {
-  position: relative; /* Es clave para que el menú se posicione correctamente */
+position: relative;
 }
 
-/* El menú en sí mismo */
+/* El menú de categorías */
 .dropdown-content {
-  display: none; /* Oculto por defecto */
-  position: absolute;
-  background-color: #222; /* Color de fondo oscuro */
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
-  z-index: 1001; /* Asegura que esté sobre otros elementos */
-  top: 100%; /* Lo posiciona justo debajo del enlace */
-  left: 0;
-  border-radius: 5px;
-  overflow: hidden;
-  padding: 10px 0;
-  animation: fadeIn 0.3s ease-in-out;
+display: none;
+position: absolute;
+background-color: #222;
+min-width: 160px;
+box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+z-index: 1001;
+top: 100%;
+left: 0;
+border-radius: 5px;
+overflow: hidden;
+padding: 10px 0;
+animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Estilo para los enlaces dentro del menú */
+/* Estilos para los enlaces dentro del menú */
 .dropdown-content a {
-  color: white;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-  font-family: "montserrat";
-  font-weight: normal;
-  font-size: 1rem;
+color: white;
+padding: 12px 16px;
+text-decoration: none;
+display: block;
+text-align: left;
+font-family: "montserrat";
+font-weight: normal;
+font-size: 1rem;
 }
 
-/* Cambio de color al pasar el cursor */
 .dropdown-content a:hover {
-  background-color: #444;
+background-color: #444;
 }
 
 /* Clase para mostrar el menú */
 .dropdown-show {
-  display: block;
+display: block;
 }
 
-/* Animación de entrada (la misma que usas en el modal) */
+/* Animación de entrada */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+from { opacity: 0; }
+to { opacity: 1; }
 }
-
-/****************************************************************************/
 
 /* Contenedor del menú desplegable del perfil */
 .dropdown-profile {
-  position: relative; /* Es clave para el posicionamiento */
+position: relative;
 }
 
-/* El menú en sí mismo */
+/* El menú de perfil */
 .dropdown-profile-content {
-  display: none; /* Oculto por defecto */
-  position: absolute;
-  background-color: #222;
-  min-width: 150px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
-  z-index: 1001;
-  top: 100%; /* Posiciona el menú debajo del ícono */
-  right: 0; /* Lo alinea a la derecha del ícono */
-  border-radius: 5px;
-  overflow: hidden;
-  animation: fadeIn 0.3s ease-in-out;
+display: none;
+position: absolute;
+background-color: #222;
+min-width: 150px;
+box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+z-index: 1001;
+top: 100%;
+right: 0;
+border-radius: 5px;
+overflow: hidden;
+animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Estilo para el enlace de "Cerrar Sesión" */
+/* Estilo para "Cerrar Sesión" */
 .dropdown-profile-content .logout-link {
-  color: white;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: center;
-  font-family: "montserrat";
+color: white;
+padding: 12px 16px;
+text-decoration: none;
+display: block;
+text-align: center;
+font-family: "montserrat";
 }
 
-/* Cambio de color al pasar el cursor */
 .dropdown-profile-content .logout-link:hover {
-  background-color: #444;
+background-color: #444;
 }
 
 /* Clase para mostrar el menú */
 .dropdown-show-profile {
-  display: block;
+display: block;
 }
 
-/********************************************************************/
+/* ------------------------------------------------------------------- */
+/* BARRA DE BÚSQUEDA */
+/* ------------------------------------------------------------------- */
 
-/* Contenedor del ícono y el input de búsqueda */
 .search-bar-container {
-  display: flex;
-  align-items: center;
-  position: relative; /* Clave para el posicionamiento */
+display: flex;
+align-items: center;
+position: relative;
 }
 
-/* El contenedor del input que estará oculto */
 .search-input-hidden {
-  display: none;
-  position: absolute;
-  left: 70px; /* Ajusta la posición para que no se superponga con la lupa */
-  top: 50%;
-  transform: translateY(-50%);
-  width: 370px;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+display: none;
+position: absolute;
+left: 50px; /* Ajustada posición */
+top: 50%;
+transform: translateY(-50%);
+width: 300px;
+opacity: 0;
+transition: opacity 0.3s ease-in-out;
 }
 
-/* Estilo del input de búsqueda */
 .search-input {
-  width: 100%;
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #333;
-  color: white;
-  font-family: "montserrat";
+width: 100%;
+padding: 8px 12px;
+border: 1px solid #ccc;
+border-radius: 5px;
+background-color: #333;
+color: white;
+font-family: "montserrat";
 }
 
-/* Estilo para el input cuando está activo */
 .search-input-hidden.active {
-  display: block;
-  opacity: 1;
+display: block;
+opacity: 1;
 }
 
-/* Mueve el ícono de búsqueda a la izquierda cuando la barra se activa */
+/* Mueve el ícono de búsqueda a la izquierda cuando la barra se activa (NO ES NECESARIO MOVERLO TANTO) */
 .search-bar-container.active .icon-search {
-  left: -260px; /* Mueve el ícono a la izquierda */
-  transition: left 0.3s ease-in-out;
+left: 0; 
+transition: none; /* Quitamos la transición para simplificar */
 }
 
-/*********************************************************************************/
 
+/* ////////////////////////////////////////////////////////////////////// */
+/* MEDIA QUERIES PARA RESPONSIVIDAD */
+/* ////////////////////////////////////////////////////////////////////// */
+
+
+/* ------------------------------------------------------------------- */
+/* 1. Tabletas y Móviles Grandes (Max-width: 768px) */
+/* ------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  
+  /* HEADER: Ocultar menú de navegación principal */
+  .main-nav {
+      display: none; /* Ocultamos el nav principal */
+  }
+
+  /* Íconos */
+  .icon-search, .icon-profile {
+      width: 35px;
+      height: 35px;
+  }
+
+  /* BARRA DE BÚSQUEDA: Más grande y ocupando el centro */
+  .search-input-hidden {
+      width: 60vw; /* Ocupa más espacio en el centro */
+      left: 50%;
+      transform: translate(-50%, -50%); /* Centrarlo */
+  }
+  
+  /* HEADER: Centrar los dos elementos restantes (búsqueda y perfil) */
+  header {
+      justify-content: space-around; /* Distribuye los íconos de búsqueda y perfil */
+      width: 100%;
+      padding: 10px 10px;
+  }
+  
+  /* GRID: 3 columnas */
+  .container {
+      grid-template-columns: repeat(3, 1fr); 
+      gap: 4vw;
+      padding: 0 4vw;
+      max-width: 100vw;
+  }
+
+  .container img {
+    border-radius: 1.5vw;
+  }
+
+  /* Título */
+  .peliculasTexto {
+      font-size: 4.5vw;
+      width: 25%;
+  }
+  
+  /* Menús Desplegables: Asegurar que se vean bien */
+  .dropdown-content, .dropdown-profile-content {
+      position: fixed; /* Mejor fixed para evitar que se salga de la pantalla */
+      top: 60px; /* Debajo del header */
+      right: 0;
+      left: auto;
+  }
+
+  .dropdown-content {
+      right: 10px; /* Separar del borde derecho */
+      left: auto;
+  }
+
+}
+
+
+/* ------------------------------------------------------------------- */
+/* 2. Móviles Pequeños (Max-width: 480px) */
+/* ------------------------------------------------------------------- */
+@media (max-width: 480px) {
+  
+  /* HEADER */
+  header {
+      padding: 10px 5px;
+  }
+
+  /* BARRA DE BÚSQUEDA */
+  .search-input-hidden {
+      width: 80vw; /* Máximo ancho */
+  }
+
+  /* GRID: 2 columnas */
+  .container {
+      grid-template-columns: repeat(2, 1fr); 
+      gap: 5vw;
+      padding: 0 5vw;
+  }
+  
+  /* Título */
+  .peliculasTexto {
+      font-size: 6vw;
+      width: 35%;
+  }
+  
+  .barraBlanca {
+      width: 65%;
+  }
+
+}
