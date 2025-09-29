@@ -1,4 +1,4 @@
-// Archivo: ./scripts/info.js (Versión Definitiva)
+// Archivo: ./scripts/info.js (Versión con Ranking)
 
 // -------------------------------------------------------------
 // URL BASE DE LA API
@@ -11,6 +11,54 @@ const BASE_URL = 'https://riconada-s1-bastosthomas-ruedasergio-i61e.onrender.com
 // -------------------------------------------------------------
 function volverPaginaAnterior() {
     history.back();
+}
+
+
+// -------------------------------------------------------------
+// FUNCIÓN PARA ACTUALIZAR EL RANKING (LIKES/DISLIKES) 💥 NUEVO
+// -------------------------------------------------------------
+async function actualizarRanking(mediaId, mediaType, action) {
+    const endpoint = mediaType === 'movie' ? 'movies' : 'series';
+    // 💡 ASUMIMOS ESTE ENDPOINT para enviar la acción
+    const urlRanking = `${BASE_URL}/api/v1/${endpoint}/ranking/${mediaId}`;
+    
+    // Deshabilitar botones para evitar clics múltiples
+    const likeButton = document.getElementById('like-btn');
+    const dislikeButton = document.getElementById('dislike-btn');
+    if (likeButton) likeButton.style.pointerEvents = 'none';
+    if (dislikeButton) dislikeButton.style.pointerEvents = 'none';
+    
+    // Opcional: Feedback visual de que se está enviando
+    if (action === 'like') likeButton.style.opacity = '0.7';
+    if (action === 'dislike') dislikeButton.style.opacity = '0.7';
+
+    try {
+        const respuesta = await fetch(urlRanking, {
+            method: 'PUT', 
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            // Enviamos la acción 'like' o 'dislike' en el cuerpo
+            body: JSON.stringify({ action: action }) 
+        });
+
+        if (!respuesta.ok) {
+            throw new Error(`Error al actualizar ranking: ${respuesta.status}`);
+        }
+        
+        console.log(`Voto registrado para ${mediaType} ${mediaId}. Acción: ${action}`);
+        alert(`¡Gracias por tu voto! Se registró tu ${action}.`);
+        
+    } catch (error) {
+        console.error('Error al actualizar el ranking:', error);
+        alert('Ocurrió un error al registrar tu voto. Inténtalo más tarde.');
+
+    } finally {
+        // Al finalizar, puedes decidir si quieres que el botón del voto
+        // quede resaltado o si se deshabilita permanentemente (simulando un voto único).
+        // Si quieres que el botón de like se vea más claro después de votar:
+        if (action === 'like' && likeButton) likeButton.style.opacity = '1.0';
+    }
 }
 
 
@@ -43,7 +91,7 @@ async function obtenerYMostrarInfo() {
     }
     
     try {
-        // 2. CONSTRUCCIÓN DE URL: Asegurando que no haya caracteres extra
+        // 2. CONSTRUCCIÓN DE URL
         const urlFinal = `${BASE_URL}/api/v1/${endpoint}/${mediaId}`;
         
         console.log("Intentando llamar a:", urlFinal);
@@ -84,6 +132,21 @@ async function obtenerYMostrarInfo() {
         
         categoriaElement.textContent = `Categoría: ${categoriaTexto || 'N/A'}`;
         descripcionElement.innerHTML = `<span class="titulo">Descripción:</span> ${media.descripcion || 'Descripción no disponible'}`;
+        
+        // 4. LÓGICA DE EVENTOS DE LIKES/DISLIKES 💥 NUEVO
+        const likeButton = document.getElementById('like-btn');
+        const dislikeButton = document.getElementById('dislike-btn');
+        
+        if (likeButton && dislikeButton) {
+            
+            likeButton.addEventListener('click', () => {
+                actualizarRanking(mediaId, mediaType, 'like');
+            });
+            
+            dislikeButton.addEventListener('click', () => {
+                actualizarRanking(mediaId, mediaType, 'dislike');
+            });
+        }
 
     } catch (error) {
         console.error('Error al obtener la información de la API:', error);
