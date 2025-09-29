@@ -1,4 +1,4 @@
-// Archivo: ./scripts/series.js
+// Archivo: ./scripts/series.js (VERSIÓN FINAL Y CORREGIDA)
 
 // NUEVA URL BASE SIN /api/v1
 const BASE_URL = 'https://riconada-s1-bastosthomas-ruedasergio-i61e.onrender.com';
@@ -7,33 +7,42 @@ const BASE_URL = 'https://riconada-s1-bastosthomas-ruedasergio-i61e.onrender.com
 let todasLasSeries = []; 
 
 // ***************************************************************
+// FUNCIÓN AUXILIAR: Quitar tildes para evitar errores de coincidencia
+// ***************************************************************
+function quitarTildes(texto) {
+    // Normaliza la cadena y remueve los diacríticos (tildes)
+    return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+// ***************************************************************
 // FUNCIÓN NUEVA: Cargar la data desde la API y mostrarla
 // ***************************************************************
 async function cargarYMostrarSeries() {
     const container = document.getElementById('series-container');
-    if (!container) return; // Salir si el contenedor no existe
+    if (!container) return; 
 
     try {
-        // Llama al endpoint de listar series
         const respuesta = await fetch(`${BASE_URL}/api/v1/series/`);
         
-        // Verifica si la respuesta es OK (código 200)
         if (!respuesta.ok) {
             throw new Error(`Error HTTP: ${respuesta.status}`);
         }
         
-        // Convierte la respuesta a JSON
         const series = await respuesta.json();
         
-        // Almacena las series en la variable global para filtrado/búsqueda
+        // 🛑 LÍNEA DE DIAGNÓSTICO CLAVE:
+        // Imprime las categorías del primer objeto de la API
+        if (series.length > 0 && series[0].categoria) {
+            console.warn("DIAGNÓSTICO API: Las categorías del primer elemento son:", series[0].categoria);
+        }
+        // 🛑 FIN DE DIAGNÓSTICO
+        
         todasLasSeries = series; 
         
-        // Renderiza la data
         imprimirSeries(todasLasSeries); 
 
     } catch (error) {
         console.error('Error al cargar las series desde la API:', error);
-        // Muestra el mensaje de error en el contenedor
         container.innerHTML = '<p style="color: red; text-align: center; margin-top: 30px; width: 100vw;">Error: No se pudieron cargar las series. Verifica la conexión y el endpoint.</p>';
     }
 }
@@ -47,7 +56,6 @@ function imprimirSeries(series) {
     
     if (!container) return; 
 
-    // Limpiar el contenedor antes de renderizar
     container.innerHTML = ''; 
 
     if (!series || series.length === 0) {
@@ -58,7 +66,7 @@ function imprimirSeries(series) {
     series.forEach(serie => {
         const linkElement = document.createElement('a');
         
-        // 🔑 CORRECCIÓN CLAVE: Agregamos el parámetro 'type=series' para info.js
+        // 🔑 Enlace a detalle
         linkElement.href = `./info.html?id=${serie._id}&type=series`; 
 
         const imageElement = document.createElement('img');
@@ -71,39 +79,53 @@ function imprimirSeries(series) {
     });
 }
 
+
 // ***************************************************************
-// FUNCIÓN 2: Lógica de Filtrado por Categoría
+// FUNCIÓN 2: Lógica de Filtrado por Categoría (CORREGIDA)
 // ***************************************************************
 function filtrarPorCategoria(categoria) {
-    // Si se activa el filtro de categoría, se desactiva la búsqueda
+    // Desactivar la búsqueda al usar el filtro
     const searchInputWrapper = document.getElementById('search-input-wrapper');
     if (searchInputWrapper) {
         const searchInput = searchInputWrapper.querySelector('.search-input');
         if (searchInput) searchInput.value = '';
     }
     
-    // 🔑 CORRECCIÓN: Usa la data global cargada (todasLasSeries)
     if (!categoria || categoria === "Todas") {
         imprimirSeries(todasLasSeries);
         return;
     }
 
+    // 🔑 CLAVE: Normalizamos el nombre de la categoría (usuario)
+    const categoriaLimpia = quitarTildes(categoria).toLowerCase();
+
+    // Nota: Los logs de prueba se han quitado para el código final.
+    // console.log("BUSCANDO CATEGORÍA:", categoriaLimpia); 
+
     const seriesFiltradas = todasLasSeries.filter(serie => {
-        // CORRECCIÓN: Manejo de la categoría (asume que puede ser array o string)
+        if (!serie.categoria) return false; 
+        
+        // Caso 1: La categoría es un ARRAY (lo más común en series)
         if (Array.isArray(serie.categoria)) {
-            return serie.categoria.some(cat => cat.toLowerCase() === categoria.toLowerCase());
-        }
-        return serie.categoria && serie.categoria.toLowerCase() === categoria.toLowerCase();
+            return serie.categoria.some(cat => {
+                const catAPI_Limpia = quitarTildes(cat).toLowerCase();
+                return catAPI_Limpia === categoriaLimpia;
+            });
+        } 
+        
+        // Caso 2: La categoría es un STRING simple (Manejo de data inconsistente)
+        const catAPI_Limpia = quitarTildes(serie.categoria).toLowerCase();
+        return catAPI_Limpia === categoriaLimpia;
     });
 
     imprimirSeries(seriesFiltradas);
 }
 
+
 // ***************************************************************
 // FUNCIÓN 3: Lógica de Búsqueda de Texto
 // ***************************************************************
 function buscarSeries(termino) {
-    // 🔑 CORRECCIÓN: Usa la data global cargada (todasLasSeries)
     if (!termino || termino.trim() === '') {
         imprimirSeries(todasLasSeries);
         return;
@@ -111,8 +133,8 @@ function buscarSeries(termino) {
     
     const terminoLowerCase = termino.toLowerCase();
 
-    // Filtra las series por título o descripción
     const resultados = todasLasSeries.filter(serie => {
+        // Asumiendo que 'titulo' y 'descripcion' son strings
         const tituloCoincide = serie.titulo.toLowerCase().includes(terminoLowerCase);
         const descripcionCoincide = serie.descripcion.toLowerCase().includes(terminoLowerCase);
 
@@ -129,7 +151,6 @@ function buscarSeries(termino) {
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    // 🔑 CLAVE: Inicializa la carga de la API al cargar el DOM.
     cargarYMostrarSeries(); 
     
     // Selectores del DOM
@@ -148,7 +169,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // -------------------------------------------------------------
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
-            // Llama a la función de búsqueda cada vez que se teclea algo
             buscarSeries(e.target.value);
         });
     }
@@ -162,12 +182,10 @@ document.addEventListener('DOMContentLoaded', () => {
         enlacesCategoria.forEach(enlace => {
             enlace.addEventListener('click', (e) => {
                 e.preventDefault();
-                const categoriaSeleccionada = e.target.getAttribute('data-category');
+                const categoriaSeleccionada = e.currentTarget.getAttribute('data-category');
                 
-                // Llama a la función de filtrado
                 filtrarPorCategoria(categoriaSeleccionada);
 
-                // Cerrar el menú desplegable
                 categoriasMenu.classList.remove('dropdown-show');
             });
         });
@@ -185,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
             searchBarContainer.classList.toggle('active', isActive);
             
             if (isActive) {
-                searchInput.focus(); // Enfoca el input al abrir
+                searchInput.focus(); 
             }
         });
     }
