@@ -59,7 +59,7 @@ function imprimirSeries(series) {
         const linkElement = document.createElement('a');
         
         // 🔑 CORRECCIÓN CLAVE: Agregamos el parámetro 'type=series' para info.js
-        linkElement.href = `./info.html?id=${serie._id.$oid || serie.id}&type=series`; 
+        linkElement.href = `./info.html?id=${serie._id}&type=series`; 
 
         const imageElement = document.createElement('img');
         imageElement.src = serie.imagen; 

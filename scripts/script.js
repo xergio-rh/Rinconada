@@ -24,6 +24,7 @@ async function cargarYMostrarPeliculas() {
         
         // Convierte la respuesta a JSON
         const peliculas = await respuesta.json();
+        console.log('Primer objeto de la API:', peliculas[0]);
         
         // Almacena las películas en la variable global para filtrado/búsqueda
         todasLasPeliculas = peliculas; 
@@ -58,7 +59,7 @@ function imprimirPeliculas(peliculas) {
         const linkElement = document.createElement('a');
         
         // 🔑 CORRECCIÓN CLAVE: Agregamos el parámetro 'type=movie' para info.js
-        linkElement.href = `./info.html?id=${pelicula.id}&type=movie`; 
+        linkElement.href = `./info.html?id=${pelicula._id}&type=movie`;  
 
         const imageElement = document.createElement('img');
         imageElement.src = pelicula.imagen; 
