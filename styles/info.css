@@ -115,15 +115,59 @@ a{
 }
 
 .likes img {
-    /* Ambas imágenes tendrán el mismo tamaño */
     width: 4vw;
     height: 100%; 
     background-color: rgb(57, 54, 54);
-    
-    /* Esto asegura que la imagen cubra el área sin distorsionarse, recortando si es necesario */
     object-fit: cover; 
-    
-    /* 💥 NUEVO: Indica que es clickeable */
     cursor: pointer; 
     transition: opacity 0.2s; /* Para el feedback visual en JS */
-  }
+}
+
+
+
+.container {
+    width: 100%;
+    padding: 2vw;
+    border-radius: 1vw;
+    background-color: #1a1a1a;
+    align-self: flex-start;
+}
+
+.reviewSubmit {
+    width: 100%;
+    background-color: #060d1700;
+    display: flex;
+    flex-direction: row;
+}
+
+.review-input {
+    width: 65%;
+    margin-right: 2%;
+    background-color: #060D17;
+    color: white;
+    border: 0.2vw solid #333;
+    padding: 0.5vw;
+    border-radius: 0.5vw;
+    font-size: clamp(20px, 1vw, 60px);
+    margin-bottom: 0.5vw;
+    font-weight: 300;
+}
+
+.review-inputCalificacion {
+    width: 15%;
+    background-color: #060D17;
+    color: white;
+    border: 0.2vw solid #333;
+    padding: 0.5vw;
+    border-radius: 0.5vw;
+    font-size: clamp(20px, 1vw, 60px);
+    margin-bottom: 0.5vw;
+    font-weight: 300;
+    margin-right: 2%;
+}
+
+
+
+
+
+
